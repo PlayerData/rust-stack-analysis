@@ -14,15 +14,19 @@ def cargo_build(*buildflags):
 
 
 def llvm_read_stack_sizes(path):
+    env = os.environ.copy()
+    env["PATH"] = os.environ["PATH"] + ":" + "/opt/homebrew/opt/llvm/bin/"
+
     return json.loads(
         subprocess.run(
             [
-                "/opt/homebrew/opt/llvm/bin/llvm-readobj",
+                "llvm-readobj",
                 "--stack-sizes",
                 path,
                 "--elf-output-style=JSON",
             ],
             capture_output=True,
+            env=env,
         ).stdout
     )
 
@@ -62,12 +66,18 @@ if __name__ == "__main__":
 
     analyse_parser = subparsers.add_parser("analyse")
     analyse_parser.add_argument("path")
-    analyse_parser.add_argument("--min-size", type=int, default=512, help="Minimum stack size to print in output")
+    analyse_parser.add_argument(
+        "--min-size",
+        type=int,
+        default=512,
+        help="Minimum stack size to print in output",
+    )
 
     args = parser.parse_args()
 
     if args.mode == "build":
-        if "--" in args.flags: args.flags.remove("--")
+        if "--" in args.flags:
+            args.flags.remove("--")
         cargo_build(*args.flags)
     elif args.mode == "analyse":
         analyse(args.path, args.min_size)

@@ -4,6 +4,21 @@ Small utility to analyse stack size for rust libraries.
 
 ## Installation
 
+### Dependencies
+
+Requires that `cargo` and `llvm-readobj` are on your PATH.
+
+On Mac, `llvm-readobj` can be installed using Homebrew:
+
+```
+brew install llvm
+```
+
+For convenience, `analyse-stack.py` will automatically add Homebrew's install location
+to your path.
+
+### Rust
+
 Until `rustc`'s `-Z emit-stack-size` feature stabilizes (https://github.com/rust-lang/rust/issues/54192),
 you must have the nightly toolchain installed.
 
