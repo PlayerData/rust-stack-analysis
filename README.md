@@ -6,7 +6,11 @@ Small utility to analyse stack size for rust libraries.
 
 ### Dependencies
 
-Requires that `cargo` and `llvm-readobj` are on your PATH.
+```
+poetry install
+```
+
+Also requires that `cargo` and `llvm-readobj` are on your PATH.
 
 On Mac, `llvm-readobj` can be installed using Homebrew:
 
@@ -14,8 +18,8 @@ On Mac, `llvm-readobj` can be installed using Homebrew:
 brew install llvm
 ```
 
-For convenience, `analyse-stack.py` will automatically add Homebrew's install location
-to your path.
+For convenience, `analyse-stack.py` will automatically add Homebrew's default
+LLVM bin directory to `PATH` while attempting to execute `llvm-readobj`.
 
 ### Rust
 
