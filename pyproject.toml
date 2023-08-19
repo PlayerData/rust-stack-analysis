@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "rust-stack-analysis"
+version = "0.0.1"
+description = "Analyse rust libraries stack usage"
+authors = ["Hayden Ball <hayden@playerdata.com>"]
+license = "MIT"
+readme = "README.md"
+packages = [{include = "rust_stack_analysis"}]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+rust-demangler = "^1.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
