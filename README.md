@@ -18,7 +18,7 @@ On Mac, `llvm-readobj` can be installed using Homebrew:
 brew install llvm
 ```
 
-For convenience, `analyse-stack.py` will automatically add Homebrew's default
+For convenience, `rust_stack_analysis` will automatically add Homebrew's default
 LLVM bin directory to `PATH` while attempting to execute `llvm-readobj`.
 
 ### Rust
@@ -34,16 +34,22 @@ rustup toolchain install nightly
 
 ### Build for analysis
 
+Enter the poetry shell:
+
+```
+poetry shell
+```
+
 From the root of your project:
 
 ```
-analyse-stack.py build
+analyse-rust-stack build
 ```
 
 Pass any additional flags through to cargo (e.g.):
 
 ```
-analyse-stack.py build -- --no-default-features --target thumbv7em-none-eabi
+analyse-rust-stack build -- --no-default-features --target thumbv7em-none-eabi
 ```
 
 ### Analyse
@@ -51,7 +57,7 @@ analyse-stack.py build -- --no-default-features --target thumbv7em-none-eabi
 Now request analysis (e.g.):
 
 ```
-analyse-stack.py analyse target/thumbv7em-none-eabi/release/libgateway_nrf52840_rust.a
+analyse-rust-stack analyse target/thumbv7em-none-eabi/release/libgateway_nrf52840_rust.a
 ```
 
 ```

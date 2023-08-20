@@ -7,6 +7,11 @@ license = "MIT"
 readme = "README.md"
 packages = [{include = "rust_stack_analysis"}]
 
+
+[tool.poetry.scripts]
+analyse-rust-stack = "rust_stack_analysis:entrypoint"
+
+
 [tool.poetry.dependencies]
 python = "^3.11"
 rust-demangler = "^1.0"

@@ -57,7 +57,7 @@ def analyse(path, min_size):
         print(f"{i['function']}: {i['size']} bytes")
 
 
-if __name__ == "__main__":
+def entrypoint():
     parser = argparse.ArgumentParser()
     subparsers = parser.add_subparsers(required=True, dest="mode")
 
@@ -81,3 +81,7 @@ if __name__ == "__main__":
         cargo_build(*args.flags)
     elif args.mode == "analyse":
         analyse(args.path, args.min_size)
+
+
+if __name__ == "__main__":
+    entrypoint()
