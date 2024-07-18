@@ -17,18 +17,27 @@ def llvm_read_stack_sizes(path):
     env = os.environ.copy()
     env["PATH"] = os.environ["PATH"] + ":" + "/opt/homebrew/opt/llvm/bin/"
 
-    return json.loads(
-        subprocess.run(
-            [
-                "llvm-readobj",
-                "--stack-sizes",
-                path,
-                "--elf-output-style=JSON",
-            ],
-            capture_output=True,
-            env=env,
-        ).stdout
+    llvm_readobj = subprocess.run(
+        [
+            "llvm-readobj",
+            "--stack-sizes",
+            path,
+            "--elf-output-style=JSON",
+        ],
+        capture_output=True,
+        env=env,
     )
+
+    try:
+        return json.loads(llvm_readobj.stdout)
+    except json.JSONDecodeError as e:
+        print("\n")
+        print("Failed to decode JSON response from LLVM:")
+        print("")
+        print(llvm_readobj.stderr.decode("utf-8"))
+        print(llvm_readobj.stdout.decode("utf-8"))
+        print("\n")
+        raise e
 
 
 def get_function_name(mangled):
